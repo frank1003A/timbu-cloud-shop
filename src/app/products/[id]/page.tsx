@@ -16,8 +16,9 @@ import { useToast } from "@/components/ui/use-toast";
 import useActiveProduct from "@/zustand/store/activeproduct";
 import useCartStore from "@/zustand/store/cart";
 import useWishListStore from "@/zustand/store/wishlist";
-import { ArrowRight, Heart } from "lucide-react";
+import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -104,18 +105,20 @@ const Productpage = () => {
     <main>
       <section className="px-4 lg:px-[120px] py-12">
         <div className="flex flex-wrap gap-3">
+          <Link href={"/"}>
+            <Button
+              variant={"outline"}
+              className="rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
+            >
+              <ArrowLeft />
+              Home
+            </Button>
+          </Link>
           <Button
             variant={"outline"}
-            className="rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
+            className="hidden md:flex rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
           >
-            <ArrowRight />
-            Home
-          </Button>
-          <Button
-            variant={"outline"}
-            className="rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
-          >
-            <ArrowRight />
+            <ArrowLeft />
             Eyecream
           </Button>
           <Button

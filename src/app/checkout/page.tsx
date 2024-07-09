@@ -6,7 +6,8 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import useCartStore from "@/zustand/store/cart";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const CheckoutPage = () => {
   const carts = useCartStore((state) => state.items);
@@ -14,21 +15,25 @@ const CheckoutPage = () => {
   return (
     <main>
       <section className="px-2 lg:px-[120px] py-12">
-        <div className="flex gap-3">
-          <Button
-            variant={"outline"}
-            className="rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
-          >
-            <ArrowRight />
-            Home
-          </Button>
-          <Button
-            variant={"outline"}
-            className="rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
-          >
-            <ArrowRight />
-            Cart
-          </Button>
+        <div className="flex flex-wrap items-center gap-1 md:gap-3">
+          <Link href={"/"}>
+            <Button
+              variant={"outline"}
+              className="rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
+            >
+              <ArrowLeft />
+              Home
+            </Button>
+          </Link>
+          <Link href={"/cart"}>
+            <Button
+              variant={"outline"}
+              className="hidden md:flex rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
+            >
+              <ArrowLeft />
+              Cart
+            </Button>
+          </Link>
           <Button
             variant={"outline"}
             className="rounded-full bg-wprimary text-white hover:bg-wprimary hover:text-white   gap-3 px-4 py-2  border border-[#BCBCBC]"
@@ -38,7 +43,7 @@ const CheckoutPage = () => {
           </Button>
         </div>
         <main className="flex flex-col-reverse md:flex-row gap-4 mt-10">
-          <div className="w-full md:w-[40%] flex flex-col">
+          <div className="w-full md:w-[40%] flex flex-col px-4 md:px-0">
             <form className="mt-16 flex flex-col gap-3">
               <div className="flex flex-col gap-3">
                 <div className="relative group border-b-2 border-b-[#DBDBDB] focus-within:border-b-wprimary py-2 flex items-center gap-2 justify-start w-full">

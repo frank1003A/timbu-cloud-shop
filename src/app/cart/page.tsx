@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "@/components/ui/use-toast";
 import useCartStore from "@/zustand/store/cart";
-import { ArrowRight, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -32,15 +32,17 @@ const CartPage = () => {
 
   return (
     <main>
-      <section className="px-2 lg:px-[120px] py-12">
+      <section className="px-2 lg:px-[120px] py-4 md:py-12">
         <div className="flex gap-3">
-          <Button
-            variant={"outline"}
-            className="rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
-          >
-            <ArrowRight />
-            Home
-          </Button>
+          <Link href={"/"}>
+            <Button
+              variant={"outline"}
+              className="rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
+            >
+              <ArrowLeft />
+              Home
+            </Button>
+          </Link>
           <Button
             variant={"outline"}
             className="rounded-full bg-wprimary text-white hover:bg-wprimary hover:text-white   gap-3 px-4 py-2  border border-[#BCBCBC]"
@@ -68,7 +70,7 @@ const CartPage = () => {
                   <div className="table-cell"></div>
                 </div>
 
-                <div className="h-10"></div>
+                <div className="h-0 md:h-10"></div>
                 {carts.map((item, index) => {
                   return (
                     <div
