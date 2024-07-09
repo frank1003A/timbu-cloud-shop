@@ -13,7 +13,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
             width={350}
             height={200}
           />
-          <div className="absolute transition-all group-hover:animate-in animate-out hidden group-hover:block inset-0 bg-black/20">
+          <div className="absolute transition-all group-hover:animate-in animate-out hidden group-hover:block inset-0 bg-black/20 rounded-xl">
             <div className="flex w-full h-full items-center gap-2 justify-center">
               <button className="p-2 bg-wprimary text-white rounded-lg">
                 Read More
