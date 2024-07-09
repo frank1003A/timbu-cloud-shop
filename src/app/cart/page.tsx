@@ -104,13 +104,38 @@ const CartPage = () => {
                           </div>
                           <div className="p-1 flex gap-3">
                             <QuantityButton />
-                            <Button
-                              variant={"outline"}
-                              className="border-[#BCBCBC] bg-transparent hover:bg-transparent hover:border-wprimary hover:text-wprimary text-[#BCBCBC]"
-                              size={"icon"}
-                            >
-                              <Trash2 className="h-6 w-6" />
-                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button
+                                  variant={"outline"}
+                                  className="border-[#BCBCBC] bg-transparent hover:bg-transparent hover:border-wprimary hover:text-wprimary text-[#BCBCBC]"
+                                  size={"icon"}
+                                >
+                                  <Trash2 className="h-6 w-6" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>
+                                    Are you absolutely sure?
+                                  </AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    This action cannot be undone. This will
+                                    permanently delete your account and remove
+                                    your data from our servers.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => removeItemFromCart(item.id)}
+                                    className="bg-wprimary hover:bg-wprimary"
+                                  >
+                                    Continue
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
                           </div>
                         </div>
                       </div>
@@ -215,7 +240,7 @@ const CartPage = () => {
             </div>
           </main>
         ) : (
-          <div className="w-full h-full flex flex-col gap-5 items-center justify-center">
+          <div className="w-full h-screen flex flex-col gap-5 items-center justify-center">
             <div className="fill-wprimary bg-wsecondary p-6 rounded-full">
               <span>
                 <svg
