@@ -1,6 +1,6 @@
 "use client";
 import BlogCard from "@/components/blog/card";
-import { blogs, Products } from "@/components/data";
+import { blogs, Products, products2 } from "@/components/data";
 import Loading from "@/components/Loading";
 import Card from "@/components/product/Card";
 import { Button } from "@/components/ui/button";
@@ -156,7 +156,7 @@ const HomeComponent = () => {
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-12 gap-x-4 md:gap-x-10 gap-y-4 md:gap-y-14">
-            {Products.map((product) => {
+            {products2.map((product) => {
               return <Card hasDiscount key={product.name} item={product} />;
             })}
           </div>

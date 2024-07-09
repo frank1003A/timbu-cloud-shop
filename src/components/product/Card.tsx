@@ -40,14 +40,13 @@ const Card = ({ item, hasDiscount }: CardProps) => {
     toast({
       title: `Product ${item.name} added to WishList`,
       description: "Items on wish list are marked with Heart",
-      className: "border border-yellow-5",
+      className: "border border-yellow-500",
     });
   };
 
   const existingCartItem = carts.find((i) => i.id === item.id);
   const existingWishItem = wishList.find((i) => i.id === item.id);
 
-  console.log("wishlist", wishList);
   return (
     <div className="group bg-wcard border min-w-0 md:min-w-[260px] h-[290px] border-wcardborder rounded-lg overflow-hidden">
       <div className="flex flex-col h-full">
@@ -133,7 +132,7 @@ const Card = ({ item, hasDiscount }: CardProps) => {
             {item?.description}
           </span>
           <div className="flex w-full items-center justify-between py-2">
-            <span className="font-bold text-xl text-[#571426]">
+            <span className="font-bold text-xl text-[#571426] truncate">
               {item?.price}
             </span>
             <div className="flex items-center border border-[#781C34] rounded-sm px-1 justify-center gap-0 bg-[#F8E1E7] text-wprimary">
