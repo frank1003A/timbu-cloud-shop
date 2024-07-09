@@ -3,7 +3,7 @@ import { Blog } from "../data";
 
 const BlogCard = ({ blog }: { blog: Blog }) => {
   return (
-    <div className="group relative min-w-[280px]  bg-transparent overflow-hidden ">
+    <div className="group relative min-w-0 md:min-w-[280px]  bg-transparent overflow-hidden ">
       <div className="flex flex-col items-center md:items-start">
         <div className="relative w-fit h-fit overflow-hidden">
           <Image

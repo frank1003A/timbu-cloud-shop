@@ -49,7 +49,7 @@ const Card = ({ item, hasDiscount }: CardProps) => {
 
   console.log("wishlist", wishList);
   return (
-    <div className="group bg-wcard border min-w-[185px] md:min-w-[260px] h-[290px] border-wcardborder rounded-lg overflow-hidden">
+    <div className="group bg-wcard border min-w-0 md:min-w-[260px] h-[290px] border-wcardborder rounded-lg overflow-hidden">
       <div className="flex flex-col h-full">
         <div className="relative transition-all flex items-center justify-center h-full">
           {item?.status === undefined && hasDiscount ? (

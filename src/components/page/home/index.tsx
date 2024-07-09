@@ -1,9 +1,11 @@
 "use client";
 import BlogCard from "@/components/blog/card";
 import { blogs, Products } from "@/components/data";
+import Loading from "@/components/Loading";
 import Card from "@/components/product/Card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 
 const listings = [
@@ -18,8 +20,18 @@ const listings = [
   "serums",
 ];
 const HomeComponent = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <>
+      {loading && <Loading />}
       {/** Hero */}
       <section className="px-2 lg:px-[120px] py-12">
         <main className="flex flex-col lg:flex-row">
