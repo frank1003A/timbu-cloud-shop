@@ -10,7 +10,7 @@ const Header = () => {
   const wishList = useWishListStore((state) => state.items);
   const menus = ["about", "features", "pricing", "gallery", "team"];
   return (
-    <div className="relativew-full  h-[80px] sticky inset-x-0 top-0 z-50 bg-wsecondary rounded-bl-md rounded-br-md">
+    <div className="relativew-full h-[80px] sticky inset-x-0 top-0 z-50 bg-wsecondary border-b border-b-zinc-300 md:border-none">
       <main className="absolute left-0 right-0 flex items-center justify-start h-full py-4 px-4 lg:px-[120px]">
         <Logo />
 
@@ -27,8 +27,8 @@ const Header = () => {
           })}
         </ul>
 
-        <div className="ml-auto flex items-center justify-start gap-1">
-          <button className="text-wfont rounded-full p-2 transition-all border border-transparent hover:border-wprimary hover:text-wprimary">
+        <div className="ml-auto flex items-center justify-start gap-2">
+          <button className="text-wfont rounded-full p-2 transition-all border border-[#ddd] hover:border-wprimary hover:text-wprimary">
             <Search className="text-wfont" />
           </button>
 
@@ -38,23 +38,21 @@ const Header = () => {
                 <Heart />
               </button>
               {wishList.length > 0 && (
-                <div className="w-5 h-5 absolute bg-wprimary text-white flex items-center justify-center text-sm rounded-full -top-1 -right-2">
-                  <span>{wishList.length}</span>
+                <div className="absolute inline-flex items-center justify-center py-0.5 px-1.5 text-xs font-normal text-white bg-wprimary border-2 border-white rounded-full -top-2 -right-1">
+                  {wishList.length}
                 </div>
               )}
             </div>
           </Link>
           <Link href={"/cart"}>
-            <div className="relative w-fit h-fit">
-              <button className="text-wfont rounded-full p-2 transition-all border border-transparent hover:border-wprimary hover:text-wprimary">
-                <ShoppingCart />
-              </button>
+            <button className="relative text-wfont rounded-full p-2 transition-all border border-transparent hover:border-wprimary hover:text-wprimary">
+              <ShoppingCart />
               {carts.length > 0 && (
-                <div className="w-5 h-5 absolute bg-wprimary text-white flex items-center justify-center text-sm rounded-full -top-1 -right-2">
-                  <span>{carts.length}</span>
-                </div>
+                <span className="absolute text-xs inline-flex items-center justify-center py-0.5 px-1.5 font-normal text-white bg-wprimary border-2 border-white rounded-full -top-2 -right-1">
+                  {carts.length}
+                </span>
               )}
-            </div>
+            </button>
           </Link>
         </div>
       </main>

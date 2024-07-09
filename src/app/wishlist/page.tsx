@@ -32,7 +32,7 @@ const WishListPage = () => {
 
   return (
     <main>
-      <section className="px-2 lg:px-[120px] py-12">
+      <section className="px-2 lg:px-[120px] py-4 md:py-12">
         <div className="flex gap-3">
           <Button
             variant={"outline"}
@@ -68,7 +68,7 @@ const WishListPage = () => {
                   <div className="table-cell"></div>
                 </div>
 
-                <div className="h-10"></div>
+                <div className="h-0 md:h-10"></div>
                 {wishList.map((item, index) => {
                   return (
                     <div
