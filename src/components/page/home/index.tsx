@@ -88,7 +88,7 @@ const HomeComponent = () => {
       {/** */}
       <section className="px-2 lg:px-[100px] py-8 bg-sharp-gradient hidden md:flex">
         <div className="w-full rounded-2xl overflow-x-hidden transition-all border border-[#9D9D9D] px-4 py-6 bg-gradient-to-tr from-[#FCF0F3] to-[#DDC3A0] flex items-center justify-evenly">
-          <Marquee pauseOnHover>
+          <Marquee pauseOnHover autoFill>
             {listings.map((list) => {
               return (
                 <div
