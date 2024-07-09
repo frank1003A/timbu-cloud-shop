@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "@/components/ui/use-toast";
 import useWishListStore from "@/zustand/store/wishlist";
-import { ArrowRight, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -35,13 +35,13 @@ const WishListPage = () => {
       <section className="px-2 lg:px-[120px] py-4 md:py-12">
         <div className="flex gap-3">
           <Link href={"/"}>
-          <Button
-            variant={"outline"}
-            className="rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
-          >
-            <ArrowRight />
-            Home
-          </Button>
+            <Button
+              variant={"outline"}
+              className="rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
+            >
+              <ArrowLeft />
+              Home
+            </Button>
           </Link>
           <Button
             variant={"outline"}
