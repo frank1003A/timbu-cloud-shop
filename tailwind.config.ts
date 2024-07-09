@@ -23,6 +23,13 @@ const config = {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       colors: {
+        wprimary: "#BA2B50",
+        wsecondary: "#F8E1E7",
+        wfooter: "#000000",
+        wfont: "#5F5F5F",
+        wfont2: "#4F4F4F",
+        wcard: "#F8F2EB",
+        wcardborder: "#DBDBDB",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

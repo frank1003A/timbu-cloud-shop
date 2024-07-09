@@ -1,9 +1,12 @@
-import "@/styles/globals.css";
-import { Inter as FontSans } from "next/font/google";
+import { Raleway } from "next/font/google";
+import "./globals.css";
 
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 
-const fontSans = FontSans({
+const raleway = Raleway({
   subsets: ["latin"],
   variable: "--font-sans",
 });
@@ -18,11 +21,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          "min-h-screen bg-[#F8F2EB] font-sans antialiased",
+          raleway.variable
         )}
       >
-        ...
+        <Header />
+        {children}
+        <Footer />
+        <Toaster />
       </body>
     </html>
   );
