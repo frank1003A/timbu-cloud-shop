@@ -103,7 +103,7 @@ const Productpage = () => {
 
   return (
     <main>
-      <section className="px-4 lg:px-[120px] py-12">
+      <section className="px-4 lg:px-[120px] py-10 md:py-12">
         <div className="flex flex-wrap gap-3">
           <Link href={"/"}>
             <Button
@@ -132,7 +132,7 @@ const Productpage = () => {
 
         <main className="flex flex-col lg:flex-row w-full mt-16">
           {/** Image Section */}
-          <div className="w-full lg:w-1/2">
+          <div className="w-full lg:w-1/2 mb-10 md:mb-0">
             <div className="flex flex-col items-center md:border  rounded-xl">
               <Image
                 src={`/assets/favor/${activeProduct.image}`}
@@ -346,7 +346,7 @@ const Productpage = () => {
         </main>
         <Accordion type="single" collapsible>
           <AccordionItem value="review" className="border-b-0">
-            <AccordionTrigger>ddsf</AccordionTrigger>
+            <AccordionTrigger></AccordionTrigger>
             <AccordionContent>
               {reviews.map((review) => {
                 return (
@@ -383,43 +383,6 @@ const Productpage = () => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        {/** <div
-          className={cn(
-            "w-full bg-red flex flex-col transition-all",
-            review ? "h-full  animate-in" : "h-0 animate-out"
-          )}
-        >
-          {reviews.map((review) => {
-            return (
-              <div
-                key={review.title}
-                className="flex flex-col border-b border-b-[#CBCBCB] p-[12px]"
-              >
-                <div className="flex items-center justify-start">
-                  <Image
-                    src={review.image}
-                    alt={`${review.title}`}
-                    width={50}
-                    height={50}
-                  />
-                  <div className="flex flex-col gap-2 ml-3">
-                    <span className="font-semibold">{review.name}</span>
-                    <div className="flex">
-                      <Rating count={review.rating} />
-                    </div>
-                  </div>
-                  <div className="ml-auto">
-                    <span>26/07/24</span>
-                  </div>
-                </div>
-                <div className="flex flex-col mt-3 gap-3 ml-0 md:ml-[65px]">
-                  <h2 className="font-medium text-wfont2">{review.title}</h2>
-                  <span className="text-[#5F5F5F]">{review.content}</span>
-                </div>
-              </div>
-            );
-          })}
-        </div> */}
       </section>
     </main>
   );
