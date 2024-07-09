@@ -34,6 +34,7 @@ const WishListPage = () => {
     <main>
       <section className="px-2 lg:px-[120px] py-4 md:py-12">
         <div className="flex gap-3">
+          <Link href={"/"}>
           <Button
             variant={"outline"}
             className="rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
@@ -41,6 +42,7 @@ const WishListPage = () => {
             <ArrowRight />
             Home
           </Button>
+          </Link>
           <Button
             variant={"outline"}
             className="rounded-full bg-wprimary text-white hover:bg-wprimary hover:text-white   gap-3 px-4 py-2  border border-[#BCBCBC]"
