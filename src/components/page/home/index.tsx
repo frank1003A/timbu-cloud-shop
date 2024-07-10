@@ -21,6 +21,12 @@ const listings = [
 ];
 const HomeComponent = () => {
   const [loading, setLoading] = useState(true);
+  const [itemsToShow, setItemsToShow] = useState(8);
+  const [seeMore, setSeeMore] = useState(false);
+
+  const handleSeeMore = () => {
+    setSeeMore(!seeMore);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -112,16 +118,19 @@ const HomeComponent = () => {
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-12 gap-x-4 md:gap-x-10 gap-y-4 md:gap-y-14">
-            {Products.map((product) => {
-              return <Card key={product.name} item={product} />;
-            })}
+            {Products.slice(0, seeMore ? Products.length : itemsToShow).map(
+              (product) => {
+                return <Card key={product.name} item={product} />;
+              }
+            )}
           </div>
           <div className="w-full flex">
             <Button
+              onClick={handleSeeMore}
               className="ml-auto bg-wprimary hover:bg-wprimary text-white"
               size={"sm"}
             >
-              See More
+              {seeMore ? "See Less" : "See More"}
             </Button>
           </div>
         </div>
@@ -156,16 +165,19 @@ const HomeComponent = () => {
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-12 gap-x-4 md:gap-x-10 gap-y-4 md:gap-y-14">
-            {products2.map((product) => {
-              return <Card hasDiscount key={product.name} item={product} />;
-            })}
+            {products2
+              .slice(0, seeMore ? Products.length : itemsToShow)
+              .map((product) => {
+                return <Card key={product.name} item={product} />;
+              })}
           </div>
           <div className="w-full flex">
             <Button
+              onClick={handleSeeMore}
               className="ml-auto bg-wprimary hover:bg-wprimary text-white"
               size={"sm"}
             >
-              See More
+              {seeMore ? "See Less" : "See More"}
             </Button>
           </div>
         </div>
