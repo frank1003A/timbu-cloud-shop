@@ -67,7 +67,7 @@ const Header = () => {
                 <Heart />
               </button>
               {wishList.length > 0 && (
-                <div className="absolute inline-flex items-center justify-center h-2 w-2 p-1.5 text-xs font-normal text-white bg-wprimary border-2 border-white rounded-full -top-2 -right-1">
+                <div className="absolute inline-flex items-center justify-center py-0 px-1.5 text-xs font-normal text-white bg-wprimary border-2 border-white rounded-full -top-2 -right-1">
                   {wishList.length}
                 </div>
               )}
@@ -77,7 +77,7 @@ const Header = () => {
             <button className="relative text-wfont rounded-full p-2 transition-all border border-transparent hover:border-wprimary hover:text-wprimary">
               <ShoppingCart />
               {carts.length > 0 && (
-                <span className="absolute text-xs inline-flex items-center justify-center h-2 w-2 p-1.5 leading-4 font-normal text-white bg-wprimary border-2 border-white rounded-full -top-2 -right-1">
+                <span className="absolute text-xs inline-flex items-center justify-center py-0 px-1.5 leading-4 font-normal text-white bg-wprimary border-2 border-white rounded-full -top-2 -right-1">
                   {carts.length}
                 </span>
               )}
