@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 import useActiveProduct from "@/zustand/store/activeproduct";
 import useCartStore from "@/zustand/store/cart";
 import useWishListStore from "@/zustand/store/wishlist";
@@ -30,7 +31,7 @@ const reviews = [
     title: "The Estee Lauder Eye Cream",
     content:
       "is a game-changer in my skincare routine, providing noticeable reduction in fine lines and puffiness around my eyes.",
-    attachments: ["/assets/reviews/items_1.png"],
+    attachments: ["/assets/reviews/item_1.png"],
   },
   {
     image: "/assets/reviews/ava_2.png",
@@ -39,7 +40,7 @@ const reviews = [
     title: "Its Lightweight Formula",
     content:
       "absorbs quickly, So far I really am enjoying it and it gives my skin a smooth and fresh look morning and night!",
-    attachments: ["/assets/reviews/items_1.png", "/assets/reviews/items_2.png"],
+    attachments: ["/assets/reviews/item_1.png", "/assets/reviews/item_2.png"],
   },
   {
     image: "/assets/reviews/ava_3.png",
@@ -48,7 +49,7 @@ const reviews = [
     title: "It Works So Well",
     content:
       "leaving my skin feeling hydrated and refreshed without any greasy residue. After just a few weeks of use, my under-eye area looks brighter and more youthful.",
-    attachments: ["/assets/reviews/items_3.png", "/assets/reviews/items_4.png"],
+    attachments: ["/assets/reviews/item_3.png", "/assets/reviews/item_4.png"],
   },
 ];
 const Productpage = () => {
@@ -57,7 +58,7 @@ const Productpage = () => {
   const router = useRouter();
 
   const toggleReview = () => {
-    setReview(!open);
+    setReview(!review);
   };
 
   const carts = useCartStore((state) => state.items);
@@ -344,45 +345,58 @@ const Productpage = () => {
             </div>
           </div>
         </main>
-        <Accordion type="single" collapsible>
-          <AccordionItem value="review" className="border-b-0">
-            <AccordionTrigger></AccordionTrigger>
-            <AccordionContent>
-              {reviews.map((review) => {
-                return (
-                  <div
-                    key={review.title}
-                    className="flex flex-col border-b border-b-[#CBCBCB] p-[12px]"
-                  >
-                    <div className="flex items-center justify-start">
-                      <Image
-                        src={review.image}
-                        alt={`${review.title}`}
-                        width={50}
-                        height={50}
-                      />
-                      <div className="flex flex-col gap-2 ml-3">
-                        <span className="font-semibold">{review.name}</span>
-                        <div className="flex">
-                          <Rating count={review.rating} />
-                        </div>
-                      </div>
-                      <div className="ml-auto">
-                        <span>26/07/24</span>
-                      </div>
-                    </div>
-                    <div className="flex flex-col mt-3 gap-3 ml-0 md:ml-[65px]  w-[600px]">
-                      <h2 className="font-medium text-wfont2">
-                        {review.title}
-                      </h2>
-                      <span className="text-[#5F5F5F]">{review.content}</span>
+        <div
+          className={cn(
+            "w-full flex flex-col transition-all overflow-hidden mt-0",
+            review
+              ? "h-full animate-accordion-down"
+              : "h-0 animate-accordion-down"
+          )}
+        >
+          {reviews.map((review) => {
+            return (
+              <div
+                key={review.title}
+                className="flex flex-col border-b border-b-[#CBCBCB] p-[12px]"
+              >
+                <div className="flex items-center justify-start">
+                  <Image
+                    src={review.image}
+                    alt={`${review.title}`}
+                    width={50}
+                    height={50}
+                  />
+                  <div className="flex flex-col gap-2 ml-3">
+                    <span className="font-semibold">{review.name}</span>
+                    <div className="flex">
+                      <Rating count={review.rating} />
                     </div>
                   </div>
-                );
-              })}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+                  <div className="ml-auto">
+                    <span>26/07/24</span>
+                  </div>
+                </div>
+                <div className="flex flex-col mt-3 gap-3 ml-0 md:ml-[65px]  w-[600px]">
+                  <h2 className="font-medium text-wfont2">{review.title}</h2>
+                  <span className="text-[#5F5F5F]">{review.content}</span>
+                </div>
+                <div className="w-full flex gap-3 mt-1  ml-0 md:ml-[65px] flex-wrap items-center">
+                  {review.attachments.map((img) => {
+                    return (
+                      <Image
+                        key={img}
+                        src={img}
+                        alt="attachments"
+                        width={100}
+                        height={100}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
     </main>
   );

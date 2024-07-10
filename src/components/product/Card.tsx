@@ -30,7 +30,7 @@ const Card = ({ item, hasDiscount }: CardProps) => {
     addItemToCart(item);
     toast({
       title: `Product ${item.name} added to Cart`,
-      description: "Visit the cart page to checkout",
+      description: item.description,
       className: "border border-wprimary",
     });
   };
