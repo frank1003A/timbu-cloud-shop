@@ -357,7 +357,7 @@ const Productpage = () => {
             return (
               <div
                 key={review.title}
-                className="flex flex-col border-b border-b-[#CBCBCB] p-[12px]"
+                className="flex flex-col border-b last-of-type:border-b-0 border-b-[#CBCBCB] p-[12px]"
               >
                 <div className="flex items-center justify-start">
                   <Image
