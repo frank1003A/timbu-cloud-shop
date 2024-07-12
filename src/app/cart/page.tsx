@@ -256,7 +256,7 @@ const CartPage = () => {
                 </svg>
               </span>
             </div>
-            <h1 className="text-xl">
+            <h1 className="text-xl text-center">
               Your cart is empty, let&apos;s go{" "}
               <Link href={"/"}>
                 <span className="text-wprimary hover:underline">
