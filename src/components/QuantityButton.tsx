@@ -14,14 +14,14 @@ const QuantityButton = () => {
   };
 
   return (
-    <div className="flex bg-[#F8E1E780] p-2 px-3 max-w-[125px] gap-4 rounded-md items-center justify-evenly">
+    <div className="flex bg-[#F8E1E780] p-2 px-3 max-w-[125px] min-w-[125px] gap-4 rounded-md items-center justify-evenly">
       <button
         onClick={handleDecrement}
         className="rounded-md bg-[#E99FB2] hover:bg-wprimary text-white hover:bg-transparent"
       >
         <Minus />
       </button>
-      <div className="font-bold text-base">{count}</div>
+      <div className="font-bold text-base w-6 h-6">{count}</div>
       <button
         onClick={handleIncrement}
         className="rounded-md bg-[#E99FB2] hover:bg-wprimary text-white hover:bg-transparent"
