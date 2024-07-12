@@ -41,7 +41,7 @@ const HomeComponent = () => {
       {/** Hero */}
       <section className="px-2 lg:px-[120px] py-12">
         <main className="flex flex-col lg:flex-row">
-          <div className="px-3 flex md:hidden">
+          <div className="px-2 flex md:hidden">
             <div className="w-full rounded-2xl overflow-x-hidden transition-all border border-[#9D9D9D] px-4 py-6 bg-gradient-to-tr from-[#FCF0F3] to-[#DDC3A0] flex items-center justify-evenly">
               <Marquee>
                 {listings.map((list) => {
