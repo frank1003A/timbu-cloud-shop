@@ -75,14 +75,14 @@ const HomeComponent = () => {
             />
           </div>
 
-          <div className="hidden md:flex flex-col w-full lg:w-1/2 ">
+          <div className="hidden md:flex flex-col md:text-center items-center  w-full lg:w-1/2 ">
             <Image
               src={"/assets/hero_face.png"}
               alt="makeuponface"
               width={500}
               height={300}
             />
-            <p className="text-justify text-sm w-[90%]">
+            <p className="text-justify text-sm w-[90%] md:text-center">
               Discover your natural glow with WillowSage Cosmetics. Pure,
               gentle, and effective skincare inspired by nature. Join our
               community and embrace radiant beauty.

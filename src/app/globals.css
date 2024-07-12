@@ -79,3 +79,7 @@
   @apply bg-gradient-to-b;
   background-image: linear-gradient(to bottom, #f8f2eb 50%, #fcf0f3 50%);
 }
+
+.container {
+  max-width: 1349px;
+}

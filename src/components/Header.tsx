@@ -41,7 +41,7 @@ const Header = () => {
   const addProduct = useActiveProduct((state) => state.addActiveProduct);
   return (
     <div className="relativew-full h-[80px] sticky inset-x-0 top-0 z-50 bg-wsecondary border-b border-b-zinc-300 md:border-none">
-      <main className="absolute left-0 right-0 flex items-center justify-start h-full py-4 px-4 lg:px-[120px]">
+      <main className="absolute container left-0 right-0 flex items-center justify-start h-full py-4 px-4 lg:px-[120px]">
         <Logo />
 
         <ul className="gap-8 ml-10 hidden lg:flex">

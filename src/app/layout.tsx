@@ -26,7 +26,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         )}
       >
         <Header />
-        {children}
+        <div className="container">{children}</div>
         <Footer />
         <Toaster />
       </body>

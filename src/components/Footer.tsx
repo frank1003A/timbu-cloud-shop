@@ -20,7 +20,7 @@ const CustomLi = ({ children }: { children: React.ReactNode }) => {
 const Footer = () => {
   return (
     <footer className="w-full bg-wfooter ">
-      <div className="grid  grid-cols-1 lg:grid-cols-4 gap-x-10 py-20 px-6 lg:px-[120px] justify-items-center items-center ">
+      <div className="grid container grid-cols-1 lg:grid-cols-4 gap-x-10 py-20 px-6 lg:px-[120px] justify-items-center items-center ">
         <div className="flex flex-col gap-5  items-left lg:items-start justify-center lg:justify-start col-span-1">
           <Logo hasText textClass="ml-0 text-[40px]" />
           <span className="text-[#9D9D9D] text-left lg:text-start">
