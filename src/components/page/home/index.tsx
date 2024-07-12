@@ -82,7 +82,7 @@ const HomeComponent = () => {
               width={500}
               height={300}
             />
-            <p className="text-justify text-sm w-[90%] md:text-center">
+            <p className="text-justify text-sm w-[90%] md:text-center lg:text-start">
               Discover your natural glow with WillowSage Cosmetics. Pure,
               gentle, and effective skincare inspired by nature. Join our
               community and embrace radiant beauty.
