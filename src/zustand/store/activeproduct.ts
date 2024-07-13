@@ -1,4 +1,4 @@
-import { Product } from "@/components/data";
+import { Product } from "@/types";
 import { create } from "zustand";
 
 interface ActiveProductState {
@@ -8,7 +8,7 @@ interface ActiveProductState {
 
 const useActiveProduct = create<ActiveProductState>()((set) => ({
   product: {
-    id: 1,
+    id: "1",
     image: "",
     name: "",
     description: "",

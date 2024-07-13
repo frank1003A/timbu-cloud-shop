@@ -1,4 +1,4 @@
-import { Product } from "@/components/data";
+import { Product } from "@/types";
 import { create } from "zustand";
 
 interface WishItem extends Product {
@@ -8,7 +8,7 @@ interface WishItem extends Product {
 interface WishState {
   items: WishItem[];
   addItem: (item: Product) => void;
-  removeItem: (id: number) => void;
+  removeItem: (id: string) => void;
 }
 
 const useWishListStore = create<WishState>((set) => ({

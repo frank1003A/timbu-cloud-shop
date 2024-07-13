@@ -1,4 +1,4 @@
-import { Product } from "@/components/data";
+import { Product } from "@/types";
 import { create } from "zustand";
 
 interface CartItem extends Product {
@@ -8,7 +8,7 @@ interface CartItem extends Product {
 interface CartState {
   items: CartItem[];
   addItem: (item: Product) => void;
-  removeItem: (id: number) => void;
+  removeItem: (id: string) => void;
   updateItem: (name: string, quantity: number) => void;
   clearCart: () => void;
 }
