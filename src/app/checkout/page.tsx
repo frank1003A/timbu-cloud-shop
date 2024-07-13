@@ -8,10 +8,44 @@ import { Separator } from "@/components/ui/separator";
 import useCartStore from "@/zustand/store/cart";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 const CheckoutPage = () => {
   const carts = useCartStore((state) => state.items);
   const images = carts.map((item) => item.image);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    shipTo: "",
+    paymentMethod: "",
+  });
+
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handlePaymentMethodChange = (value: string) => {
+    setFormData({ ...formData, paymentMethod: value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      formData.name &&
+      formData.email &&
+      formData.shipTo &&
+      formData.paymentMethod
+    ) {
+      // All fields are filled, set form valid state
+      setIsFormValid(true);
+    } else {
+      alert("Please fill all the fields");
+    }
+  };
+
   return (
     <main>
       <section className="px-2 lg:px-[120px] py-12">
@@ -42,21 +76,33 @@ const CheckoutPage = () => {
             Checkout
           </Button>
         </div>
-        <main className="flex flex-col-reverse md:flex-row gap-4 mt-10">
-          <div className="w-full md:w-[40%] flex flex-col px-4 md:px-0">
-            <form className="mt-16 flex flex-col gap-3">
+        <main className="grid grid-cols-1 md:grid-cols-2 gap-x-36 gap-4 mt-10">
+          <div className="w-full  flex flex-col px-4 md:px-0">
+            <form
+              className="mt-16 flex flex-col gap-3"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <div className="flex flex-col gap-3">
-                <div className="relative group border-b-2 border-b-[#DBDBDB] focus-within:border-b-wprimary py-2 flex items-center gap-2 justify-start w-full">
+                <div className="relative group border-b-2 border-b-[#DBDBDB] focus-within:border-b-wprimary py-2 flex items-center gap-1 justify-start w-full">
                   <label className="text-[#8D8D8D]  w-20">Name</label>
-                  <input className="w-full bg-transparent border-transparent focus-visible:outline-none " />
+                  <input
+                    required
+                    className="w-full bg-transparent border-transparent focus-visible:outline-none "
+                  />
                 </div>
-                <div className="relative group border-b-2 border-b-[#DBDBDB] focus-within:border-b-wprimary py-2 flex items-center gap-2 justify-start w-full">
+                <div className="relative group border-b-2 border-b-[#DBDBDB] focus-within:border-b-wprimary py-2 flex items-center gap-1 justify-start w-full">
                   <label className="text-[#8D8D8D]  w-20">Email</label>
-                  <input className="w-full bg-transparent border-transparent focus-visible:outline-none " />
+                  <input
+                    required
+                    className="w-full bg-transparent border-transparent focus-visible:outline-none "
+                  />
                 </div>
-                <div className="relative group border-b-2 border-b-[#DBDBDB] focus-within:border-b-wprimary py-2 flex items-center gap-2 justify-start w-full">
+                <div className="relative group border-b-2 border-b-[#DBDBDB] focus-within:border-b-wprimary py-2 flex items-center gap-1 justify-start w-full">
                   <label className="text-[#8D8D8D] w-20">Ship to</label>
-                  <input className="w-full bg-transparent border-transparent focus-visible:outline-none " />
+                  <input
+                    required
+                    className="w-full bg-transparent border-transparent focus-visible:outline-none "
+                  />
                 </div>
               </div>
 
@@ -64,7 +110,11 @@ const CheckoutPage = () => {
                 <h1 className="text-[#383838]">
                   <strong>Payment Method</strong>
                 </h1>
-                <RadioGroup defaultValue="option-one" className="gap-5">
+                <RadioGroup
+                  defaultValue="option-one"
+                  className="gap-5"
+                  onValueChange={handlePaymentMethodChange}
+                >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem
                       className="data-[state=checked]:bg-wprimary data-[state=checked]:text-wprimary"
@@ -236,19 +286,23 @@ const CheckoutPage = () => {
               <div className="flex flex-col gap-4 mt-5">
                 <Input
                   placeholder="Card Number"
+                  required
                   className="bg-transparent border border-[#DBDBDB] focus-visible:ring-2 focus-visible:ring-wprimary"
                 />
                 <Input
                   placeholder="Card Name"
+                  required
                   className="bg-transparent border border-[#DBDBDB] focus-visible:ring-2 focus-visible:ring-wprimary"
                 />
 
                 <div className="flex gap-2">
                   <Input
+                    required
                     placeholder="expiration date (MM/YY)"
                     className="bg-transparent border border-[#DBDBDB] focus-visible:ring-2 focus-visible:ring-wprimary"
                   />
                   <Input
+                    required
                     placeholder="Security code"
                     className="bg-transparent border border-[#DBDBDB] focus-visible:ring-2 focus-visible:ring-wprimary"
                   />
@@ -271,7 +325,7 @@ const CheckoutPage = () => {
               </div>
             </form>
           </div>
-          <div className="w-full md:w-[60%] pl-0 md:pl-32 flex flex-col ">
+          <div className="w-full pl-0 flex flex-col ">
             <h1 className="mb-4 text-center text-lg font-medium">
               Confirm Order Details
             </h1>

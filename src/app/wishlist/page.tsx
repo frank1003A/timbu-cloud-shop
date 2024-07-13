@@ -22,7 +22,7 @@ import Link from "next/link";
 const WishListPage = () => {
   const wishList = useWishListStore((state) => state.items);
 
-  const removeItemFromCart = (id: number) => {
+  const removeItemFromCart = (id: string) => {
     useWishListStore.getState().removeItem(id);
     toast({
       variant: "destructive",
@@ -80,7 +80,7 @@ const WishListPage = () => {
                       <div className="table-cell align-middle">
                         <div className="flex items-center justify-center rounded-md border">
                           <Image
-                            src={`/assets/favor/${item.image}`}
+                            src={`${item.image}`}
                             className="mt-auto "
                             alt="loading_gif"
                             width={80}

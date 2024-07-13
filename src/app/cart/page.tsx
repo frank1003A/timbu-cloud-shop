@@ -22,7 +22,9 @@ import Link from "next/link";
 const CartPage = () => {
   const carts = useCartStore((state) => state.items);
 
-  const removeItemFromCart = (id: number) => {
+  console.log(carts);
+
+  const removeItemFromCart = (id: string) => {
     useCartStore.getState().removeItem(id);
     toast({
       variant: "destructive",
@@ -80,7 +82,7 @@ const CartPage = () => {
                       <div className="table-cell align-middle">
                         <div className="flex items-center justify-center rounded-md border">
                           <Image
-                            src={`/assets/favor/${item.image}`}
+                            src={`${item.image}`}
                             className="mt-auto "
                             alt="loading_gif"
                             width={80}
