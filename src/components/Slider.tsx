@@ -78,7 +78,7 @@ const SliderComponent = ({ images }: { images: string[] }) => {
             >
               <div className="absolute inset-0 flex items-center justify-center">
                 <Image
-                  src={`/assets/favor/${image}`}
+                  src={`${image}`}
                   className="rounded-lg "
                   alt="banner_image"
                   width={200}

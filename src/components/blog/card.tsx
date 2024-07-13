@@ -1,5 +1,5 @@
+import { Blog } from "@/types";
 import Image from "next/image";
-import { Blog } from "../data";
 
 const BlogCard = ({ blog }: { blog: Blog }) => {
   return (
@@ -9,7 +9,8 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
           <Image
             src={`/assets/blogs/${blog.image}`}
             className="mt-auto border rounded-xl border-[#9D9D9D]"
-            alt="loading_gif"
+            alt="blog image
+            "
             width={350}
             height={200}
           />
