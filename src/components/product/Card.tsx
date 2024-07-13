@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
+import { Product } from "@/types";
 import useActiveProduct from "@/zustand/store/activeproduct";
 import useCartStore from "@/zustand/store/cart";
 import useWishListStore from "@/zustand/store/wishlist";
 import { Heart, Link2, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Product } from "../data";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 
@@ -50,7 +50,7 @@ const Card = ({ item, hasDiscount }: CardProps) => {
   return (
     <div className="group bg-wcard border min-w-0 md:min-w-[260px] h-[290px] border-wcardborder rounded-lg overflow-hidden">
       <div className="flex flex-col h-full">
-        <div className="relative transition-all flex items-center justify-center h-full">
+        <div className="relative transition-all overflow-hidden flex items-center justify-center h-full">
           {item?.status === undefined && hasDiscount ? (
             <div className="capitalize absolute top-4 left-4 flex items-center border border-[#781C34] rounded-lg px-1 justify-center gap-0 bg-[#E17E98E5] text-[#571426">
               -20%
@@ -79,9 +79,8 @@ const Card = ({ item, hasDiscount }: CardProps) => {
             )
           }
           <Image
-            src={`/assets/favor/${item?.image}`}
-            className="mt-auto"
-            alt="loading_gif"
+            src={`${item?.image}`}
+            alt="item_image"
             width={120}
             height={180}
           />

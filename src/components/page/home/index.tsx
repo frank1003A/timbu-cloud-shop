@@ -1,9 +1,12 @@
 "use client";
 import BlogCard from "@/components/blog/card";
-import { blogs, Products, products2 } from "@/components/data";
+import { blogs } from "@/components/data/data";
 import Loading from "@/components/Loading";
 import Card from "@/components/product/Card";
 import { Button } from "@/components/ui/button";
+import { Product, ProductResponse } from "@/types";
+import { useProductStore } from "@/zustand/store/product";
+import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
@@ -20,13 +23,56 @@ const listings = [
   "serums",
 ];
 const HomeComponent = () => {
-  const [loading, setLoading] = useState(true);
   const [itemsToShow, setItemsToShow] = useState(8);
   const [seeMore, setSeeMore] = useState(false);
-
+  // const { products, isLoading, isError } = useProducts();
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
+  const { setProducts: setStoreProducts, products: savedProjects } =
+    useProductStore();
+  const [error, setError] = useState<string | null>(null);
   const handleSeeMore = () => {
     setSeeMore(!seeMore);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/products"); // Call your custom API route
+        if (response.status !== 200) {
+          throw new Error("Failed to fetch products");
+        }
+        const data = response.data;
+
+        // Transform the data if needed to match your desired format
+        const transformedProducts = data.items.map(
+          (product: ProductResponse) => {
+            return {
+              id: product.id, // Convert to number if needed
+              image:
+                `https://api.timbu.cloud/images/${product.photos[0]?.url}` ||
+                "",
+              name: product.name,
+              description: product.description,
+              price: product.current_price[0]?.NGN[0]?.toString() || "N/A",
+              rating: "4.5", // Assuming no rating data available, adjust as necessary
+              status: product.is_available ? "In-stock" : "out of stock",
+            };
+          }
+        );
+
+        setProducts(transformedProducts);
+        setStoreProducts(transformedProducts);
+      } catch (error) {
+        setError("Failed to fetch products");
+        console.error("Fetch error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -35,6 +81,9 @@ const HomeComponent = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  if (error) return <div>failed to load</div>;
+
   return (
     <>
       {loading && <Loading />}
@@ -118,11 +167,10 @@ const HomeComponent = () => {
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-12 gap-x-4 md:gap-x-10 gap-y-4 md:gap-y-14">
-            {Products.slice(0, seeMore ? Products.length : itemsToShow).map(
-              (product) => {
-                return <Card key={product.name} item={product} />;
-              }
-            )}
+            {savedProjects &&
+              savedProjects.slice(0, itemsToShow).map((product) => {
+                return <Card key={product.name} item={product as Product} />;
+              })}
           </div>
           <div className="w-full flex">
             <Button
@@ -165,10 +213,9 @@ const HomeComponent = () => {
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-12 gap-x-4 md:gap-x-10 gap-y-4 md:gap-y-14">
-            {products2
-              .slice(0, seeMore ? Products.length : itemsToShow)
-              .map((product) => {
-                return <Card key={product.name} item={product} />;
+            {savedProjects &&
+              savedProjects.slice(8, 16).map((product) => {
+                return <Card key={product.name} item={product as Product} />;
               })}
           </div>
           <div className="w-full flex">

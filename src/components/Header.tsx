@@ -12,10 +12,10 @@ import {
 } from "./ui/dialog";
 
 import useActiveProduct from "@/zustand/store/activeproduct";
+import { useProductStore } from "@/zustand/store/product";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
-import { Products, products2 } from "./data";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Separator } from "./ui/separator";
@@ -26,6 +26,7 @@ const Header = () => {
   const wishList = useWishListStore((state) => state.items);
   const menus = ["about", "features", "pricing", "gallery", "team"];
   const [open, setOpen] = useState(false);
+  const { products } = useProductStore();
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -33,12 +34,14 @@ const Header = () => {
   };
 
   const filteredProducts = searchValue
-    ? [...Products, ...products2].filter((item) =>
+    ? products.filter((item) =>
         item.name.toLowerCase().includes(searchValue.toLowerCase())
       )
     : [];
 
   const addProduct = useActiveProduct((state) => state.addActiveProduct);
+
+  console.log(products);
   return (
     <div className="relativew-full h-[80px] sticky inset-x-0 top-0 z-50 bg-wsecondary border-b border-b-zinc-300 md:border-none">
       <main className="absolute container left-0 right-0 flex items-center justify-start h-full py-4 px-4 lg:px-[120px]">
@@ -80,11 +83,9 @@ const Header = () => {
                 {searchValue && filteredProducts.length > 0 ? (
                   filteredProducts.map((item) => (
                     <>
-                      <Link href={`/products/${item.id}`}>
+                      <Link key={item.id} href={`/products/${item.id}`}>
                         <button
-                          key={item.id}
                           onClick={() => {
-                            addProduct(item);
                             setOpen(false);
                             setSearchValue("");
                           }}
@@ -92,14 +93,14 @@ const Header = () => {
                         >
                           <div className="flex gap-2 items-center">
                             <Image
-                              src={`/assets/favor/${item.image}`}
+                              src={`${item.image}`}
                               alt="search illustration"
                               width={40}
                               height={40}
                             />
                             <div className="flex flex-col text-start">
                               <h3 className="font-bold">{item.name}</h3>
-                              <p>{item.description}</p>
+                              <p>{item.price}</p>
                             </div>
 
                             <span className="ml-auto">
