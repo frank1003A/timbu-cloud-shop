@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+export const baseUrl = "https://timbu-cloud-shop-kappa.vercel.app";
 
 export const fetchProducts = async (url: string) => {
   try {

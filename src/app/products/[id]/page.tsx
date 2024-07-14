@@ -16,13 +16,21 @@ const Productpage = async ({ params }: { params: { id: string } }) => {
   // fetch product_id
   const product = await fetchProduct();
 
+  if (!product) {
+    return (
+      <div className="h-screen w-full text-wprimary text-2xl flex items-center justify-center">
+        Product not found
+      </div>
+    );
+  }
+
   // transform returned data to match model
   const transformedProduct: Product = {
-    id: product.id, // Convert to number if needed
-    image: `https://api.timbu.cloud/images/${product.photos[0]?.url}` || "",
-    name: product.name,
-    description: product.description,
-    price: product.current_price[0]?.NGN[0]?.toString() || "N/A",
+    id: product?.id, // Convert to number if needed
+    image: `https://api.timbu.cloud/images/${product?.photos[0]?.url}` || "",
+    name: product?.name,
+    description: product?.description,
+    price: product?.current_price,
     rating: "4.5", // Assuming no rating data available, adjust as necessary
     status: product.is_available ? "In-stock" : "out of stock",
   };

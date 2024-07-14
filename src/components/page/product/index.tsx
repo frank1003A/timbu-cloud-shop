@@ -199,7 +199,7 @@ const ProductPageComponent = ({ activeProduct }: Props) => {
               <div className="flex items-center gap-1">
                 <span>
                   <strong>
-                    <span>NGN</span>
+                    <span className="mr-1">NGN</span>
                     {activeProduct.price}
                   </strong>
                 </span>
@@ -233,6 +233,7 @@ const ProductPageComponent = ({ activeProduct }: Props) => {
                 <div className="flex gap-3">
                   <QuantityButton />
                   <Button
+                    onClick={simulateAddToWishList}
                     className="bg-transparent gap-2 hover:border-wprimary hover:text-wprimary w-full hover:bg-transparent text-wfont2"
                     size={"default"}
                     variant={"outline"}

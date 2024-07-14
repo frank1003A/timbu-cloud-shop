@@ -21,9 +21,11 @@ const QuantityButton = () => {
       >
         <Minus />
       </button>
-      <span className="font-bold text-base w-6 h-6 flex items-center justify-center">
-        {count}
-      </span>
+      <div>
+        <span className="font-bold text-base max-w-6 h-6 flex items-center justify-center">
+          {count}
+        </span>
+      </div>
       <button
         onClick={handleIncrement}
         className="rounded-md bg-[#E99FB2] hover:bg-wprimary text-white hover:bg-transparent"
