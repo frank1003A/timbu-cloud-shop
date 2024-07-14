@@ -21,6 +21,7 @@ import Link from "next/link";
 
 const CartPage = () => {
   const carts = useCartStore((state) => state.items);
+  const { updateItem } = useCartStore();
   const { subTotal, total } = useCartStore((state) => state);
 
   const removeItemFromCart = (id: string) => {
@@ -74,6 +75,7 @@ const CartPage = () => {
                 <div className="h-0 md:h-10"></div>
                 {carts.map((item, index) => {
                   const unit = item.price;
+
                   return (
                     <div
                       key={index}
@@ -103,11 +105,12 @@ const CartPage = () => {
                               {item.status}
                             </span>
                             <span className="text-wfont2 text-lg font-bold">
-                              {item.price}
+                              ₦ {item.quantity * parseFloat(unit)}
                             </span>
                           </div>
                           <div className="p-1 flex gap-3">
                             <QuantityButton
+                              updateItem={updateItem}
                               itemId={item.id}
                               itemPrice={item.price}
                             />
@@ -169,6 +172,7 @@ const CartPage = () => {
                       <div className="hidden md:table-cellhidden md:table-cell align-middle">
                         <div>
                           <QuantityButton
+                            updateItem={updateItem}
                             itemId={item.id}
                             itemPrice={item.price}
                           />

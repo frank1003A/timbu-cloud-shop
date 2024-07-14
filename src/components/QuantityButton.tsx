@@ -1,5 +1,4 @@
 "usee client";
-import useCartStore from "@/zustand/store/cart";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 
@@ -9,10 +8,10 @@ interface Props {
 interface Props {
   itemId: string; // Added this prop to identify the item
   itemPrice: string;
+  updateItem: (id: string, quantity: number) => void;
 }
 
-const QuantityButton = ({ itemId, itemPrice }: Props) => {
-  const { updateItem } = useCartStore();
+const QuantityButton = ({ itemId, itemPrice, updateItem }: Props) => {
   const unitPrice = parseFloat(itemPrice);
   const [cv, setCV] = useState(1);
   const [pc, setPc] = useState(unitPrice);
