@@ -21,8 +21,7 @@ import Link from "next/link";
 
 const CartPage = () => {
   const carts = useCartStore((state) => state.items);
-
-  console.log(carts);
+  const { subTotal, total } = useCartStore((state) => state);
 
   const removeItemFromCart = (id: string) => {
     useCartStore.getState().removeItem(id);
@@ -74,6 +73,7 @@ const CartPage = () => {
 
                 <div className="h-0 md:h-10"></div>
                 {carts.map((item, index) => {
+                  const unit = item.price;
                   return (
                     <div
                       key={index}
@@ -107,7 +107,10 @@ const CartPage = () => {
                             </span>
                           </div>
                           <div className="p-1 flex gap-3">
-                            <QuantityButton />
+                            <QuantityButton
+                              itemId={item.id}
+                              itemPrice={item.price}
+                            />
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
                                 <Button
@@ -150,7 +153,7 @@ const CartPage = () => {
                           <span className="text-wfont2 text-lg font-bold">
                             {item.name}{" "}
                           </span>
-                          <span>{item.price}</span>
+                          <span>₦ {item.price}</span>
                         </div>
                       </div>
                       <div className="hidden md:table-cell align-middle">
@@ -160,17 +163,20 @@ const CartPage = () => {
                       </div>
                       <div className="hidden md:table-cellhidden md:table-cell align-middle">
                         <span className="text-wfont2 text-lg font-bold">
-                          {item.price}
+                          ₦ {item.price}
                         </span>
                       </div>
                       <div className="hidden md:table-cellhidden md:table-cell align-middle">
                         <div>
-                          <QuantityButton />
+                          <QuantityButton
+                            itemId={item.id}
+                            itemPrice={item.price}
+                          />
                         </div>
                       </div>
                       <div className="hidden md:table-cell align-middle">
                         <span className="text-wfont2 text-lg font-bold">
-                          {item.price}
+                          ₦ {item.quantity * parseFloat(unit)}
                         </span>
                       </div>
                       <div className="hidden md:table-cell align-middle">
@@ -216,11 +222,11 @@ const CartPage = () => {
               <div className="flex flex-col my-5 gap-2">
                 <div className="w-full flex items-center justify-between">
                   <span>Sub Total</span>
-                  <span>£590</span>
+                  <span>{subTotal}</span>
                 </div>
                 <div className="w-full flex items-center justify-between">
                   <span>Shipping</span>
-                  <span>£20</span>
+                  <span>₦ 200</span>
                 </div>
               </div>
               <Separator className="bg-[#ddd]" />
@@ -229,7 +235,7 @@ const CartPage = () => {
                   <strong>Total</strong>
                 </span>
                 <span className="text-2xl">
-                  <strong>£610</strong>
+                  <strong>₦ {total}</strong>
                 </span>
               </div>
               <Separator className="my-3 bg-[#ddd]" />

@@ -131,9 +131,12 @@ const Card = ({ item, hasDiscount }: CardProps) => {
             {item?.description}
           </span>
           <div className="flex w-full items-center justify-between py-2">
-            <span className="font-bold text-xl text-[#571426] truncate">
-              {item?.price}
-            </span>
+            <div className="inline-grid grid-flow-col gap-1 justify-items-start font-bold text-xl text-[#571426] truncate">
+              <span className="whitespace-nowrap">₦</span>
+              <span className="whitespace-nowrap font-bold text-xl text-[#571426] truncate">
+                {item?.price}
+              </span>
+            </div>
             <div className="flex items-center border border-[#781C34] rounded-sm px-1 justify-center gap-0 bg-[#F8E1E7] text-wprimary">
               <svg
                 width="24"

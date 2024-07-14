@@ -8,44 +8,56 @@ import { Separator } from "@/components/ui/separator";
 import useCartStore from "@/zustand/store/cart";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const CheckoutPage = () => {
   const carts = useCartStore((state) => state.items);
   const images = carts.map((item) => item.image);
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     shipTo: "",
-    paymentMethod: "",
+    paymentMethod: "option-one",
+    cno: "",
+    cn: "",
+    ed: "",
+    sc: "",
   });
 
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (name === "cno" && (isNaN(Number(value)) || value.length > 12)) {
+      return;
+    }
+
+    if (name === "sc") {
+      if (!/^\d*$/.test(value) || value.length > 3) {
+        return;
+      }
+    }
+
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handlePaymentMethodChange = (value: string) => {
-    setFormData({ ...formData, paymentMethod: value });
+    setFormData((prevData) => ({ ...prevData, paymentMethod: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (
-      formData.name &&
-      formData.email &&
-      formData.shipTo &&
-      formData.paymentMethod
-    ) {
-      // All fields are filled, set form valid state
-      setIsFormValid(true);
-    } else {
-      alert("Please fill all the fields");
+    // Check if any field is empty
+    for (const key in formData) {
+      if (!formData[key as keyof typeof formData]) {
+        alert("Complete Form");
+        return;
+      }
     }
+    router.push("/thank-you");
   };
-
   return (
     <main>
       <section className="px-2 lg:px-[120px] py-12">
@@ -78,30 +90,33 @@ const CheckoutPage = () => {
         </div>
         <main className="grid grid-cols-1 md:grid-cols-2 gap-x-36 gap-4 mt-10">
           <div className="w-full  flex flex-col px-4 md:px-0">
-            <form
-              className="mt-16 flex flex-col gap-3"
-              onSubmit={(e) => e.preventDefault()}
-            >
+            <form className="mt-16 flex flex-col gap-3" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-3">
                 <div className="relative group border-b-2 border-b-[#DBDBDB] focus-within:border-b-wprimary py-2 flex items-center gap-1 justify-start w-full">
                   <label className="text-[#8D8D8D]  w-20">Name</label>
                   <input
-                    required
-                    className="w-full bg-transparent border-transparent focus-visible:outline-none "
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent border-transparent focus-visible:outline-none"
                   />
                 </div>
                 <div className="relative group border-b-2 border-b-[#DBDBDB] focus-within:border-b-wprimary py-2 flex items-center gap-1 justify-start w-full">
                   <label className="text-[#8D8D8D]  w-20">Email</label>
                   <input
-                    required
-                    className="w-full bg-transparent border-transparent focus-visible:outline-none "
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent border-transparent focus-visible:outline-none"
                   />
                 </div>
                 <div className="relative group border-b-2 border-b-[#DBDBDB] focus-within:border-b-wprimary py-2 flex items-center gap-1 justify-start w-full">
                   <label className="text-[#8D8D8D] w-20">Ship to</label>
                   <input
-                    required
-                    className="w-full bg-transparent border-transparent focus-visible:outline-none "
+                    name="shipTo"
+                    value={formData.shipTo}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent border-transparent focus-visible:outline-none"
                   />
                 </div>
               </div>
@@ -285,25 +300,37 @@ const CheckoutPage = () => {
 
               <div className="flex flex-col gap-4 mt-5">
                 <Input
+                  type="number"
                   placeholder="Card Number"
-                  required
+                  name="cno"
+                  value={formData.cno}
+                  onChange={handleInputChange}
                   className="bg-transparent border border-[#DBDBDB] focus-visible:ring-2 focus-visible:ring-wprimary"
                 />
                 <Input
                   placeholder="Card Name"
-                  required
+                  name="cn"
+                  value={formData.cn}
+                  onChange={handleInputChange}
                   className="bg-transparent border border-[#DBDBDB] focus-visible:ring-2 focus-visible:ring-wprimary"
                 />
 
                 <div className="flex gap-2">
                   <Input
-                    required
+                    name="ed"
+                    type="date"
                     placeholder="expiration date (MM/YY)"
+                    value={formData.ed}
+                    onChange={handleInputChange}
                     className="bg-transparent border border-[#DBDBDB] focus-visible:ring-2 focus-visible:ring-wprimary"
                   />
                   <Input
-                    required
+                    name="sc"
+                    type="number"
+                    maxLength={2}
                     placeholder="Security code"
+                    value={formData.sc}
+                    onChange={handleInputChange}
                     className="bg-transparent border border-[#DBDBDB] focus-visible:ring-2 focus-visible:ring-wprimary"
                   />
                 </div>

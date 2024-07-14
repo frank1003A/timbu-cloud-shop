@@ -1,5 +1,4 @@
 "use client";
-import QuantityButton from "@/components/QuantityButton";
 import Rating from "@/components/rating/rating";
 import {
   Accordion,
@@ -16,7 +15,8 @@ import { cn } from "@/lib/utils";
 import { Product } from "@/types";
 import useCartStore from "@/zustand/store/cart";
 import useWishListStore from "@/zustand/store/wishlist";
-import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
+import clsx from "clsx";
+import { ArrowLeft, ArrowRight, Heart, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -58,6 +58,26 @@ interface Props {
 const ProductPageComponent = ({ activeProduct }: Props) => {
   const [review, setReview] = useState(false);
   const router = useRouter();
+
+  const unitPrice = parseFloat(activeProduct.price); // Parse the item price once
+  const [cv, setCV] = useState(1); // Start count at 1
+  const [pc, setPc] = useState(unitPrice); // Initial price
+
+  const handleIncrement = () => {
+    setCV((prevCount) => {
+      const newCount = prevCount + 1;
+      setPc(newCount * unitPrice);
+      return newCount;
+    });
+  };
+
+  const handleDecrement = () => {
+    setCV((prevCount) => {
+      const newCount = Math.max(prevCount - 1, 1);
+      setPc(newCount * unitPrice);
+      return newCount;
+    });
+  };
 
   const toggleReview = () => {
     setReview(!review);
@@ -103,6 +123,7 @@ const ProductPageComponent = ({ activeProduct }: Props) => {
       className: "border border-yellow-5",
     });
   };
+
   return (
     <main>
       <section className="px-4 lg:px-[120px] py-10 md:py-12">
@@ -121,7 +142,7 @@ const ProductPageComponent = ({ activeProduct }: Props) => {
             className="hidden md:flex rounded-full hover:bg-inherit hover:text-wprimary  gap-3 px-4 py-2 bg-transparent text-[#BCBCBC] border border-[#BCBCBC]"
           >
             <ArrowLeft />
-            Eyecream
+            {activeProduct.name.slice(0, 5)}...
           </Button>
           <Button
             variant={"outline"}
@@ -199,11 +220,11 @@ const ProductPageComponent = ({ activeProduct }: Props) => {
               <div className="flex items-center gap-1">
                 <span>
                   <strong>
-                    <span className="mr-1">NGN</span>
-                    {activeProduct.price}
+                    <span className="mr-1">₦</span>
+                    {pc}
                   </strong>
                 </span>
-                <span className="line-through">$400.00</span>
+                <span className="line-through">₦400.00</span>
               </div>
 
               <RadioGroup
@@ -231,12 +252,34 @@ const ProductPageComponent = ({ activeProduct }: Props) => {
 
               <div className="w-full flex flex-col gap-8 ">
                 <div className="flex gap-3">
-                  <QuantityButton />
+                  <div className="grid grid-cols-3 bg-[#F8E1E780] justify-items-center p-2 px-3 w-auto min-w-[100px] gap-4 rounded-md ">
+                    <button
+                      onClick={handleDecrement}
+                      className="rounded-md bg-[#E99FB2] w-6 h-6 hover:bg-wprimary text-white hover:bg-transparent"
+                    >
+                      <Minus />
+                    </button>
+                    <div>
+                      <span className="font-bold text-base max-w-6 h-6 flex items-center justify-center">
+                        {cv}
+                      </span>
+                    </div>
+                    <button
+                      onClick={handleIncrement}
+                      className="rounded-md bg-[#E99FB2] w-6 h-6 hover:bg-wprimary text-white hover:bg-transparent"
+                    >
+                      <Plus />
+                    </button>
+                  </div>
                   <Button
                     onClick={simulateAddToWishList}
-                    className="bg-transparent gap-2 hover:border-wprimary hover:text-wprimary w-full hover:bg-transparent text-wfont2"
+                    className={clsx(
+                      existingWishItem
+                        ? "bg-wprimary text-wprimary"
+                        : "bg-transparent text-muted-foreground border border-muted-foreground",
+                      "bg-transparent gap-2 hover:border-wprimary hover:text-wprimary w-full hover:bg-transparent text-wfont2"
+                    )}
                     size={"default"}
-                    variant={"outline"}
                   >
                     <Heart /> Wishlist
                   </Button>
@@ -258,12 +301,7 @@ const ProductPageComponent = ({ activeProduct }: Props) => {
                       <span>Eyecream</span>
                     </div>
                   </div>
-                  <Accordion
-                    type="single"
-                    defaultValue="item-1"
-                    collapsible
-                    className="w-full mt-10"
-                  >
+                  <Accordion type="single" collapsible className="w-full mt-10">
                     <AccordionItem value="item-1" className="border-b-0">
                       <AccordionTrigger className="border-b">
                         Additional Info
