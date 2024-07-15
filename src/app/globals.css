@@ -85,3 +85,16 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+
+.hidden-scrollbar {
+  overflow-y: scroll;
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+.hidden-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+}

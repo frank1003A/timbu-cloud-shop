@@ -9,10 +9,11 @@ import useCartStore from "@/zustand/store/cart";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CheckoutPage = () => {
   const carts = useCartStore((state) => state.items);
+  const { total, subTotal } = useCartStore((state) => state);
   const images = carts.map((item) => item.image);
   const router = useRouter();
 
@@ -58,6 +59,13 @@ const CheckoutPage = () => {
     }
     router.push("/thank-you");
   };
+
+  useEffect(() => {
+    if (total === 0 && subTotal === 0) {
+      router.push("/");
+    }
+  }, [router, subTotal, total]);
+
   return (
     <main>
       <section className="px-2 lg:px-[120px] py-12">
@@ -89,13 +97,14 @@ const CheckoutPage = () => {
           </Button>
         </div>
         <main className="grid grid-cols-1 md:grid-cols-2 gap-x-36 gap-4 mt-10">
-          <div className="w-full  flex flex-col px-4 md:px-0">
+          <div className="w-full order-2 md:order-1 flex flex-col px-4 md:px-0">
             <form className="mt-16 flex flex-col gap-3" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-3">
                 <div className="relative group border-b-2 border-b-[#DBDBDB] focus-within:border-b-wprimary py-2 flex items-center gap-1 justify-start w-full">
                   <label className="text-[#8D8D8D]  w-20">Name</label>
                   <input
                     name="name"
+                    required
                     value={formData.name}
                     onChange={handleInputChange}
                     className="w-full bg-transparent border-transparent focus-visible:outline-none"
@@ -105,6 +114,7 @@ const CheckoutPage = () => {
                   <label className="text-[#8D8D8D]  w-20">Email</label>
                   <input
                     name="email"
+                    required
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full bg-transparent border-transparent focus-visible:outline-none"
@@ -114,6 +124,7 @@ const CheckoutPage = () => {
                   <label className="text-[#8D8D8D] w-20">Ship to</label>
                   <input
                     name="shipTo"
+                    required
                     value={formData.shipTo}
                     onChange={handleInputChange}
                     className="w-full bg-transparent border-transparent focus-visible:outline-none"
@@ -128,6 +139,7 @@ const CheckoutPage = () => {
                 <RadioGroup
                   defaultValue="option-one"
                   className="gap-5"
+                  required
                   onValueChange={handlePaymentMethodChange}
                 >
                   <div className="flex items-center space-x-2">
@@ -303,6 +315,7 @@ const CheckoutPage = () => {
                   type="number"
                   placeholder="Card Number"
                   name="cno"
+                  required
                   value={formData.cno}
                   onChange={handleInputChange}
                   className="bg-transparent border border-[#DBDBDB] focus-visible:ring-2 focus-visible:ring-wprimary"
@@ -310,6 +323,7 @@ const CheckoutPage = () => {
                 <Input
                   placeholder="Card Name"
                   name="cn"
+                  required
                   value={formData.cn}
                   onChange={handleInputChange}
                   className="bg-transparent border border-[#DBDBDB] focus-visible:ring-2 focus-visible:ring-wprimary"
@@ -319,6 +333,7 @@ const CheckoutPage = () => {
                   <Input
                     name="ed"
                     type="date"
+                    required
                     placeholder="expiration date (MM/YY)"
                     value={formData.ed}
                     onChange={handleInputChange}
@@ -329,6 +344,7 @@ const CheckoutPage = () => {
                     type="number"
                     maxLength={2}
                     placeholder="Security code"
+                    required
                     value={formData.sc}
                     onChange={handleInputChange}
                     className="bg-transparent border border-[#DBDBDB] focus-visible:ring-2 focus-visible:ring-wprimary"
@@ -352,23 +368,23 @@ const CheckoutPage = () => {
               </div>
             </form>
           </div>
-          <div className="w-full pl-0 flex flex-col ">
+          <div className="w-full order-1 md:order-2 pl-0 flex flex-col ">
             <h1 className="mb-4 text-center text-lg font-medium">
               Confirm Order Details
             </h1>
-            <div className="bg-[#F2E5D7] flex flex-col rounded-xl h-full w-full px-5 py-7">
-              <div className="flex items-center w-full">
+            <div className="bg-[#F2E5D7] grid grid-rows-2 grid-cols-1 revers rounded-xl h-full w-full px-5 py-7">
+              <div className="flex order-1 md:order-1 items-center w-full">
                 <SliderComponent images={images} />
               </div>
-              <div className="flex flex-col  mt-auto">
+              <div className="flex order-2 md:order-2 flex-col mt-auto">
                 <div className="flex flex-col my-5 gap-2">
                   <div className="w-full flex items-center justify-between">
                     <span>Sub Total</span>
-                    <span>£590</span>
+                    <span>₦ {subTotal}</span>
                   </div>
                   <div className="w-full flex items-center justify-between">
                     <span>Shipping</span>
-                    <span>£20</span>
+                    <span>₦ {"200"}</span>
                   </div>
                 </div>
                 <Separator className="bg-[#BCBCBC]" />
@@ -377,7 +393,7 @@ const CheckoutPage = () => {
                     <strong>Total</strong>
                   </span>
                   <span>
-                    <strong>£610</strong>
+                    <strong>₦ {total}</strong>
                   </span>
                 </div>
                 <Separator className="bg-[#BCBCBC] my-3" />

@@ -1,7 +1,7 @@
 "use client";
 import useCartStore from "@/zustand/store/cart";
 import useWishListStore from "@/zustand/store/wishlist";
-import { Heart, LinkIcon, Search, ShoppingCart } from "lucide-react";
+import { Heart, Link2, Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import Logo from "./Logo";
 import {
@@ -11,7 +11,6 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 
-import useActiveProduct from "@/zustand/store/activeproduct";
 import { useProductStore } from "@/zustand/store/product";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import Image from "next/image";
@@ -39,9 +38,6 @@ const Header = () => {
       )
     : [];
 
-  const addProduct = useActiveProduct((state) => state.addActiveProduct);
-
-  console.log(products);
   return (
     <div className="relativew-full h-[80px] sticky inset-x-0 top-0 z-50 bg-wsecondary border-b border-b-zinc-300 md:border-none">
       <main className="absolute container left-0 right-0 flex items-center justify-start h-full py-4 px-4 lg:px-[120px]">
@@ -79,7 +75,7 @@ const Header = () => {
                 onChange={handleSearch}
               />
 
-              <div className="flex flex-col gap-2 overflow-y-auto  max-h-[300px]">
+              <div className="flex flex-col gap-2 overflow-y-auto hidden-scrollbar  max-h-[300px]">
                 {searchValue && filteredProducts.length > 0 ? (
                   filteredProducts.map((item) => (
                     <>
@@ -100,11 +96,11 @@ const Header = () => {
                             />
                             <div className="flex flex-col text-start">
                               <h3 className="font-bold">{item.name}</h3>
-                              <p>{item.price}</p>
+                              <p>₦ {item.price}</p>
                             </div>
 
-                            <span className="ml-auto">
-                              <LinkIcon className="w-4 h-4 hidden group-hover:block" />
+                            <span className="ml-auto ">
+                              <Link2 />
                             </span>
                           </div>
                         </button>

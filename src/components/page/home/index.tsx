@@ -38,24 +38,23 @@ const HomeComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/products"); // Call your custom API route
+        const response = await axios.get("/api/products");
         if (response.status !== 200) {
           throw new Error("Failed to fetch products");
         }
         const data = response.data;
 
-        // Transform the data if needed to match your desired format
         const transformedProducts = data.items.map(
           (product: ProductResponse) => {
             return {
-              id: product.id, // Convert to number if needed
+              id: product.id,
               image:
                 `https://api.timbu.cloud/images/${product.photos[0]?.url}` ||
                 "",
               name: product.name,
               description: product.description,
               price: product.current_price[0]?.NGN[0]?.toString() || "N/A",
-              rating: "4.5", // Assuming no rating data available, adjust as necessary
+              rating: "4.5",
               status: product.is_available ? "In-stock" : "out of stock",
             };
           }
@@ -72,7 +71,7 @@ const HomeComponent = () => {
     };
 
     fetchData();
-  }, []);
+  }, [setStoreProducts]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -214,9 +213,11 @@ const HomeComponent = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-12 gap-x-4 md:gap-x-10 gap-y-4 md:gap-y-14">
             {savedProjects &&
-              savedProjects.slice(8, 16).map((product) => {
-                return <Card key={product.name} item={product as Product} />;
-              })}
+              savedProjects
+                .slice(itemsToShow, savedProjects.length)
+                .map((product) => {
+                  return <Card key={product.name} item={product as Product} />;
+                })}
           </div>
           <div className="w-full flex">
             <Button
