@@ -86,7 +86,7 @@ const useCartStore = create<CartState>((set) => ({
         (sum, item) => sum + parseFloat(item.price) * item.quantity,
         0
       );
-      const total = subTotal * (1 + TAX_RATE);
+      const total = Number((subTotal * (1 + TAX_RATE)).toPrecision(3));
       return {
         subTotal,
         total,
