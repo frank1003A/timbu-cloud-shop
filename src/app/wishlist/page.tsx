@@ -177,10 +177,14 @@ const WishListPage = () => {
                           />
                         </div>
                       </div>
-                      <div className="hidden md:table-cell align-middle">
-                        <span className="text-wfont2 text-lg font-bold">
-                          ₦ {item.quantity * parseFloat(unit)}
-                        </span>
+                      <div className="hidden md:table-cell align-middle overflow-hidden">
+                        <input
+                          type="text"
+                          name="price"
+                          disabled
+                          className="w-28 disabled:bg-transparent text-wfont2 text-lg font-bold bg-none border-none focus:outline-none focus-visible:outline-none"
+                          value={`₦ ${item.quantity * parseFloat(unit)}`}
+                        />
                       </div>
                       <div className="hidden md:table-cell align-middle">
                         <AlertDialog>
